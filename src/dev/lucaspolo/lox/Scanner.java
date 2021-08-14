@@ -43,6 +43,23 @@ public class Scanner {
             case '+' -> addToken(TokenType.PLUS);
             case ';' -> addToken(TokenType.SEMICOLON);
             case '*' -> addToken(TokenType.STAR);
+            case '!' -> addToken(match('=') ? TokenType.BANG_EQUAL : TokenType.BANG);
+            case '=' -> addToken(match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL);
+            case '<' -> addToken(match('=') ? TokenType.LESS_EQUAL : TokenType.LESS);
+            case '>' -> addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
+            case '/' -> {
+                if (match('/')) {
+                    // Um comentário vai até o fim da linha
+                    while(peek() != '\n' && !isAtEnd()) advance();
+                } else {
+                    addToken(TokenType.SLASH);
+                }
+            }
+            case ' ' -> {}
+            case '\r' -> {}
+            case '\t' -> {}
+            case '\n' -> line++; // Avança para a próxima linha
+            case '"' -> string();
             default -> Lox.error(line, "Unexpected character.");
         }
     }
@@ -58,5 +75,36 @@ public class Scanner {
     private void addToken(TokenType type, Object literal) {
         String text = source.substring(start, current);
         tokens.add(new Token(type, text, literal, line));
+    }
+
+    private boolean match(char expected) {
+        if (isAtEnd()) return false;
+        if (source.charAt(current) != expected) return false;
+
+        current++;
+        return true;
+    }
+
+    private char peek() {
+        if(isAtEnd()) return '\0';
+        return source.charAt(current);
+    }
+
+    private void string() {
+        while (peek() != '"' && !isAtEnd()) {
+            if (peek() == '\n') line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            Lox.error(line, "Unterminated string.");
+            return;
+        }
+
+        // Fechamento do "
+        advance();
+
+        String value = source.substring(start + 1, current - 1);
+        addToken(TokenType.STRING, value);
     }
 }
