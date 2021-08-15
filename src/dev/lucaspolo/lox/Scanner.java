@@ -75,6 +75,12 @@ public class Scanner {
                 if (match('/')) {
                     // Um comentário vai até o fim da linha
                     while(peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    // Comentário multilinha estilo C
+                    while(!isAtEnd()) {
+                        if (match('*') && match('/')) break;
+                        advance();
+                    }
                 } else {
                     addToken(TokenType.SLASH);
                 }
