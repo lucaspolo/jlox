@@ -85,6 +85,7 @@ public class Parser {
         if (match(TokenType.FOR)) return forStatement();
         if (match(TokenType.IF)) return ifStatement();
         if (match(TokenType.PRINT)) return printStatement();
+        if (match(TokenType.BREAK)) return breakStatement();
         if (match(TokenType.RETURN)) return returnStatement();
         if (match(TokenType.WHILE)) return whileStatement();
         if (match(TokenType.LEFT_BRACE)) return new Stmt.Block(block());
@@ -168,6 +169,12 @@ public class Parser {
 
         consume(TokenType.SEMICOLON, "Expect ';' after return value.");
         return new Stmt.Return(keyword, value);
+    }
+
+    private Stmt breakStatement() {
+        Token keyword = previous();
+        consume(TokenType.SEMICOLON, "Expect ';' after break statement");
+        return new Stmt.Break(keyword);
     }
 
     private Stmt varDeclaration() {

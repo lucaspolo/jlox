@@ -27,7 +27,13 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         SUBCLASS,
     }
 
+    private enum LoopType {
+        NONE,
+        WHILE,
+    }
+
     private ClassType currentClass = ClassType.NONE;
+    private LoopType currentLoop = LoopType.NONE;
 
     void resolve(List<Stmt> statements) {
         for (Stmt statement : statements) {
@@ -185,12 +191,12 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
         if (currentFunction == FunctionType.NONE) {
-            Lox.error(stmt.keywork, "Can't return from top-level code.");
+            Lox.error(stmt.keyword, "Can't return from top-level code.");
         }
 
         if (stmt.value != null) {
             if (currentFunction == FunctionType.INITIALIZER) {
-                Lox.error(stmt.keywork, "Can't return a value from an initializer");
+                Lox.error(stmt.keyword, "Can't return a value from an initializer");
             }
 
             resolve(stmt.value);
@@ -200,9 +206,22 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitBreakStmt(Stmt.Break stmt) {
+        if (currentLoop == LoopType.NONE) {
+            Lox.error(stmt.keyword, "Break can only be used inside loops.");
+        }
+        return null;
+    }
+
+    @Override
     public Void visitWhileStmt(Stmt.While stmt) {
+        var enclosingLoop = this.currentLoop;
+        this.currentLoop = LoopType.WHILE;
+
         resolve(stmt.condition);
         resolve(stmt.body);
+
+        this.currentLoop = enclosingLoop;
         return null;
     }
 

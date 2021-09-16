@@ -354,6 +354,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitBreakStmt(Stmt.Break stmt) {
+        throw new Break();
+    }
+
+    @Override
     public Void visitVarStmt(Stmt.Var stmt) {
         Object value = null;
         if (stmt.initializer != null) {
@@ -366,8 +371,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitWhileStmt(Stmt.While stmt) {
-        while(isTruthy(evaluate(stmt.condition))) {
-            execute(stmt.body);
+        try {
+            while(isTruthy(evaluate(stmt.condition))) {
+                execute(stmt.body);
+            }
+        } catch(Break exc) {
+            return null;
         }
 
         return null;
