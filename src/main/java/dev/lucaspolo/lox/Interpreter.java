@@ -1,6 +1,7 @@
 package dev.lucaspolo.lox;
 
 import dev.lucaspolo.lox.globals.Clock;
+import dev.lucaspolo.lox.globals.Exit;
 import dev.lucaspolo.lox.globals.Print;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     Interpreter() {
         globals.define("clock", new Clock());
         globals.define("print", new Print());
+        globals.define("exit", new Exit());
     }
 
     void interpret(List<Stmt> statements) {
