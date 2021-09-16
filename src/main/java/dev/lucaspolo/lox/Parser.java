@@ -84,7 +84,6 @@ public class Parser {
     private Stmt statement() {
         if (match(TokenType.FOR)) return forStatement();
         if (match(TokenType.IF)) return ifStatement();
-        if (match(TokenType.PRINT)) return printStatement();
         if (match(TokenType.BREAK)) return breakStatement();
         if (match(TokenType.RETURN)) return returnStatement();
         if (match(TokenType.WHILE)) return whileStatement();
@@ -152,12 +151,6 @@ public class Parser {
         }
 
         return new Stmt.If(condition, thenBranch, elseBranch);
-    }
-
-    private Stmt printStatement() {
-        Expr value = expression();
-        consume(TokenType.SEMICOLON, "Expect ';' after value.");
-        return new Stmt.Print(value);
     }
 
     private Stmt returnStatement() {
@@ -431,7 +424,7 @@ public class Parser {
             if (previous().type == TokenType.SEMICOLON) return;
 
             switch(peek().type) {
-                case CLASS, FUN, VAR, FOR, IF, WHILE, PRINT, RETURN:
+                case CLASS, FUN, VAR, FOR, IF, WHILE, RETURN:
                     return;
             }
             advance();

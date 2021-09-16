@@ -16,7 +16,7 @@ public enum TokenType {
 
     // Palavras reservadas
     AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
-    PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE, BREAK,
+    RETURN, SUPER, THIS, TRUE, VAR, WHILE, BREAK,
 
     EOF
 }

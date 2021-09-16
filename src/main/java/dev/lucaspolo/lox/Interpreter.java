@@ -1,6 +1,7 @@
 package dev.lucaspolo.lox;
 
 import dev.lucaspolo.lox.globals.Clock;
+import dev.lucaspolo.lox.globals.Print;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     Interpreter() {
         globals.define("clock", new Clock());
+        globals.define("print", new Print());
     }
 
     void interpret(List<Stmt> statements) {
@@ -335,13 +337,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             execute(stmt.elseBranch);
         }
 
-        return null;
-    }
-
-    @Override
-    public Void visitPrintStmt(Stmt.Print stmt) {
-        Object value = evaluate(stmt.expression);
-        System.out.println(stringfy(value));
         return null;
     }
 
