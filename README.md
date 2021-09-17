@@ -15,10 +15,11 @@ Além das funcionalidades implementadas no livro, também são desenvolvidas alg
 - Criada função `exit()` para encerrar o script;
 - Criada função `input()` para receber entradas do usuário;
 
-## Exemplo de programa em Lox
+## Exemplos de programas em Lox
 
-```python
-// Criando uma classe para armazenar valores em uma Lista Ligada
+Criando uma lista ligada:
+
+```ruby
 class ListaLigada {
 	init() {
 		this.proximo = nil;
@@ -43,22 +44,26 @@ class ListaLigada {
 		}
 	}
 }
+```
 
+Exemplo de orientação a objetos com herança
+```ruby
 class Veiculo {
     init(nome) {
         this.nome = nome;
     }
 } 
 
-
-// Implementação de herança
 class Carro < Veiculo {
     init(nome, quantidadeDeRodas) {
         super.init(nome);
         this.quantidadeDeRodas = quantidadeDeRodas;
     }
 }
+```
 
+Utlização dos objetos e exemplo de função de primeira ordem sendo passada por parâmetro:
+```ruby
 fun imprimir(carro) {
 	print("Você cadastrou o carro " + carro.nome + " com " + carro.quantidadeDeRodas + " rodas.");
 }
