@@ -17,7 +17,7 @@ Além das funcionalidades implementadas no livro, também são desenvolvidas alg
 
 ## Exemplo de programa em Lox
 
-```
+```python
 // Criando uma classe para armazenar valores em uma Lista Ligada
 class ListaLigada {
 	init() {
