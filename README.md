@@ -18,6 +18,7 @@ Além das funcionalidades implementadas no livro, também são desenvolvidas alg
 ## Exemplo de programa em Lox
 
 ```
+// Criando uma classe para armazenar valores em uma Lista Ligada
 class ListaLigada {
 	init() {
 		this.proximo = nil;
@@ -49,6 +50,8 @@ class Veiculo {
     }
 } 
 
+
+// Implementação de herança
 class Carro < Veiculo {
     init(nome, quantidadeDeRodas) {
         super.init(nome);
@@ -79,6 +82,8 @@ fun main() {
         }
     }
 
+    // Função de primeira ordem sendo passada como parâmetro
+    // utilizando um método similar ao foreach
     lista.iterar(imprimir);
 }
 
