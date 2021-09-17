@@ -44,7 +44,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         locals.put(expr, depth);
     }
 
-    private String stringfy(Object object) {
+    public String stringfy(Object object) {
         if (object == null) return "nil";
 
         if (object instanceof Double) {
@@ -186,6 +186,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             case STAR -> {
                 checkNumberOperands(expr.operator, left, right);
                 yield (double) left * (double) right;
+            }
+            case MODULE -> {
+                checkNumberOperands(expr.operator, left, right);
+                yield (double) left % (double) right;
             }
             case PLUS -> {
                 if (left instanceof Double && right instanceof Double) {

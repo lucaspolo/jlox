@@ -13,7 +13,7 @@ public class Print implements LoxCallable {
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
-        System.out.println(arguments.get(0));
+        System.out.println(interpreter.stringfy(arguments.get(0)));
         return null;
     }
 }

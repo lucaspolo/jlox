@@ -14,6 +14,7 @@ Além das funcionalidades implementadas no livro, também são desenvolvidas alg
 - O comando `print` foi removido em decorrência da criação de uma função `print()`;
 - Criada função `exit()` para encerrar o script;
 - Criada função `input()` para receber entradas do usuário;
+- Operador de resto da divisão `%` incluído;
 
 ## Exemplos de programas em Lox
 
