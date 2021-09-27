@@ -16,6 +16,20 @@ Além das funcionalidades implementadas no livro, também são desenvolvidas alg
 - Criada função `input()` para receber entradas do usuário;
 - Operador de resto da divisão `%` incluído;
 
+## Executando o projeto
+
+Para executar o projeto é necessário o Maven e executar o seguinte comando na raiz do projeto:
+
+```shell
+mvn install
+```
+
+Depois disso basta executar o programa:
+
+```shell
+java -jar target/jlox-1.0-SNAPSHOT.jar
+```
+
 ## Exemplos de programas em Lox
 
 Criando uma lista ligada:
